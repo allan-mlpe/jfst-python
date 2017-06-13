@@ -8,7 +8,7 @@ import java.io.UnsupportedEncodingException;
 
 import br.ufpe.cin.app.JFSTMerge;
 import br.ufpe.cin.files.FilesManager;
-import br.ufpe.cin.generated.Java18MergeParser;
+import br.ufpe.cin.generated.PythonParser;
 import cide.gparser.OffsetCharStream;
 import cide.gparser.ParseException;
 import cide.gparser.TokenMgrError;
@@ -27,21 +27,21 @@ public class JParser {
 
 	/**
 	 * Parses a given .java file
-	 * @param javaFile
+	 * @param pythonFile
 	 * @return ast representing the java file
 	 * @throws ParseException 
 	 * @throws FileNotFoundException 
 	 * @throws UnsupportedEncodingException 
 	 */
-	public FSTNode parse(File javaFile) throws FileNotFoundException, UnsupportedEncodingException, ParseException, TokenMgrError  {
+	public FSTNode parse(File pythonFile) throws FileNotFoundException, UnsupportedEncodingException, ParseException, TokenMgrError  {
 		FSTFeatureNode generatedAst = new FSTFeatureNode("");//root node
-		if(isValidFile(javaFile)){
+		if(isValidFile(pythonFile)){
 			if(!JFSTMerge.isGit){
-				System.out.println("Parsing: " + javaFile.getAbsolutePath());
+				System.out.println("Parsing: " + pythonFile.getAbsolutePath());
 			}
-			Java18MergeParser parser = new Java18MergeParser(new OffsetCharStream(new InputStreamReader(new FileInputStream(javaFile),"UTF8")));
-			parser.CompilationUnit(false);
-			generatedAst.addChild(new FSTNonTerminal("Java-File", javaFile.getName()));
+			PythonParser parser = new PythonParser(new OffsetCharStream(new InputStreamReader(new FileInputStream(pythonFile),"UTF8")));
+			parser.file_input(false);
+			generatedAst.addChild(new FSTNonTerminal("Java-File", pythonFile.getName()));
 			generatedAst.addChild(parser.getRoot());
 		}
 		return generatedAst;

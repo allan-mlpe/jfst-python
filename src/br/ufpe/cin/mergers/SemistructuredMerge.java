@@ -59,7 +59,7 @@ public final class SemistructuredMerge {
 			String message = ExceptionUtils.getCauseMessage(ex);
 			if(ex instanceof FileNotFoundException) //FileNotFoundException does not support custom messages
 				message = "The merged file was deleted in one version.";
-			throw new SemistructuredMergeException(message, context);
+			//throw new SemistructuredMergeException(message, context);
 		}
 
 		// during the parsing process, code indentation is typically lost, so we reindent the code
