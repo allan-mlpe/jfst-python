@@ -17,8 +17,8 @@ import de.ovgu.cide.fstgen.ast.FSTNode;
 import de.ovgu.cide.fstgen.ast.FSTNonTerminal;
 
 /**
- * Class responsible for parsing java files, based on a 
- * <i>featurebnf</i> Java 1.8 annotated grammar: 
+ * Class responsible for parsing python files, based on a 
+ * <i>featurebnf</i> Python annotated grammar: 
  * {@link http://tinyurl.com/java18featurebnf}
  * For more information, see the documents in <i>guides</i> package.
  * @author Guilherme
@@ -26,9 +26,9 @@ import de.ovgu.cide.fstgen.ast.FSTNonTerminal;
 public class JParser {
 
 	/**
-	 * Parses a given .java file
+	 * Parses a given .py file
 	 * @param pythonFile
-	 * @return ast representing the java file
+	 * @return ast representing the python file
 	 * @throws ParseException 
 	 * @throws FileNotFoundException 
 	 * @throws UnsupportedEncodingException 
@@ -58,10 +58,10 @@ public class JParser {
 	{
 		if(FilesManager.readFileContent(file).isEmpty()){
 			throw new FileNotFoundException();
-		} else if(file != null && (isJavaFile(file) || JFSTMerge.isGit)){
+		} else if(file != null && (isPythonFile(file) || JFSTMerge.isGit)){
 			return true;
-		} else if(file != null && !isJavaFile(file)){
-			throw new ParseException("The file " + file.getName() + " is not a valid .java file.");
+		} else if(file != null && !isPythonFile(file)){
+			throw new ParseException("The file " + file.getName() + " is not a valid .py file.");
 		} else {
 			return false;
 		}
@@ -69,12 +69,12 @@ public class JParser {
 	
 
 	/**
-	 * Checks if a given file is a .java file.
+	 * Checks if a given file is a .py file.
 	 * @param file
-	 * @return true in case file extension is <i>java</i>, or false
+	 * @return true in case file extension is <i>python</i>, or false
 	 */
-	private boolean isJavaFile(File file){
+	private boolean isPythonFile(File file){
 		//return FilenameUtils.getExtension(file.getAbsolutePath()).equalsIgnoreCase("java");
-		return file.getName().toLowerCase().contains(".java");
+		return file.getName().toLowerCase().contains(".py");
 	}
 }
