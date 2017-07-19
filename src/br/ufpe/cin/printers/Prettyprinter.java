@@ -121,7 +121,7 @@ public final class Prettyprinter {
 	private static FSTNonTerminal getCompilationUnit(FSTNode tree){
 		if(null != tree && tree instanceof FSTNonTerminal){
 			FSTNonTerminal node = (FSTNonTerminal)tree;
-			if(node.getType().equals("CompilationUnit")){
+			if(node.getType().equals("file_input")){
 				return node;
 			} else {
 				return node.getChildren().isEmpty()? null : getCompilationUnit(node.getChildren().get(1));
