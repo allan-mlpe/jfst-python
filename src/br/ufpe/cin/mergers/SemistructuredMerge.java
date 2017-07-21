@@ -53,13 +53,13 @@ public final class SemistructuredMerge {
 			context.join(merge(leftTree, baseTree, rightTree));
 
 			// handling special kinds of conflicts
-			ConflictsHandler.handle(context);
+			//ConflictsHandler.handle(context);
 
 		} catch (ParseException | FileNotFoundException | UnsupportedEncodingException | TokenMgrError ex) {
 			String message = ExceptionUtils.getCauseMessage(ex);
 			if(ex instanceof FileNotFoundException) //FileNotFoundException does not support custom messages
 				message = "The merged file was deleted in one version.";
-			//throw new SemistructuredMergeException(message, context);
+			throw new SemistructuredMergeException(message, context);
 		}
 
 		// during the parsing process, code indentation is typically lost, so we reindent the code
